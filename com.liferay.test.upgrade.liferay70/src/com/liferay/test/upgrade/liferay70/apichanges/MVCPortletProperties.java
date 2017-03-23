@@ -23,8 +23,7 @@ import com.liferay.test.upgrade.liferay70.PropertiesMigrator;
 
 @Component(
 	property = {
-		"file.extensions=properties",
-		"problem.title=Need to change to new properties",
+		"file.extensions=properties"
 	},
 	service = {
 		FileMigrator.class

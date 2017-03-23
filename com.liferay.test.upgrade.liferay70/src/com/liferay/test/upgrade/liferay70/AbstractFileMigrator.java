@@ -33,13 +33,8 @@ import com.liferay.test.upgrade.api.FileMigrator;
 import com.liferay.test.upgrade.api.SearchResult;
 
 public abstract class AbstractFileMigrator<T> implements FileMigrator {
-
 	BundleContext _context;
 	List<String> _fileExtentions;
-	String _problemTitle;
-	String _problemSummary;
-	String _problemTickets;
-	String _sectionKey;
 	final Class<T> _type;
 
 	public AbstractFileMigrator(Class<T> type) {
@@ -53,16 +48,14 @@ public abstract class AbstractFileMigrator<T> implements FileMigrator {
 		final Dictionary<String, Object> properties = ctx.getProperties();
 
 		_fileExtentions = Arrays.asList(((String) properties.get("file.extensions")).split(","));
-
-		_problemTitle = (String) properties.get("problem.title");
 	}
 
 	@Override
 	public List<SearchResult> analyze(File file) {
-		return searchFile(file, createFileChecker(_type, file));
+		return searchFile(file, createFileProvider(_type, file));
 	}
 
-	protected T createFileChecker(Class<T> type, File file) {
+	protected T createFileProvider(Class<T> type, File file) {
 		final String fileExtension = new Path(file.getAbsolutePath()).getFileExtension();
 
 		try {

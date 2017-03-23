@@ -21,30 +21,19 @@ import org.osgi.service.component.annotations.Component;
 import com.liferay.test.upgrade.api.FileMigrator;
 import com.liferay.test.upgrade.liferay70.ImportStatementMigrator;
 
-@Component(
-	property = {
-		"file.extensions=java,jsp,jspf",
-		"problem.title=Moved the Contact Name Exception Classes to Inner Classes of ContactNameException",
-		"auto.correct=import",
-		"implName=ContactNameExceptionImport"
-	},
-	service = {
-		FileMigrator.class
-	}
-)
+@Component(property = { "file.extensions=java", }, service = { FileMigrator.class })
 public class ContactNameExceptionImport extends ImportStatementMigrator {
 
 	private final static String[] IMPORTS = new String[] {
-		"com.liferay.portal.ContactFirstNameException",
-		"com.liferay.portal.ContactFullNameException",
-		"com.liferay.portal.ContactLastNameException"
+			"com.liferay.portal.ContactFirstNameException",
+			"com.liferay.portal.ContactFullNameException",
+			"com.liferay.portal.ContactLastNameException"
 	};
 
 	private final static String[] IMPORTS_FIXED = new String[] {
-		"com.liferay.portal.kernel.exception.ContactNameException",
-		"com.liferay.portal.kernel.exception.ContactNameException",
-		"com.liferay.portal.kernel.exception.ContactNameException"
-	};
+			"com.liferay.portal.kernel.exception.ContactNameException",
+			"com.liferay.portal.kernel.exception.ContactNameException",
+			"com.liferay.portal.kernel.exception.ContactNameException" };
 
 	public ContactNameExceptionImport() {
 		super(IMPORTS, IMPORTS_FIXED);
