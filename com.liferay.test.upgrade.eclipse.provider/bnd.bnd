@@ -1,0 +1,15 @@
+-buildpath: \
+	osgi.annotation;version=6.0.1,\
+	com.liferay.test.upgrade.api;version=latest,\
+	osgi.core,\
+	org.eclipse.osgi.services,\
+	org.eclipse.jdt.core,\
+	org.eclipse.equinox.common,\
+	org.eclipse.core.runtime
+-baseline: *
+javac.source: 1.8
+javac.target: 1.8
+
+Bundle-Version: 1.0.0.${tstamp}
+Export-Package: com.liferay.test.upgrade.eclipse.provider
+

@@ -1,0 +1,83 @@
+# This is the version of JUnit that will be used at build time and run time
+junit: org.apache.servicemix.bundles.junit;version="[4.11,5)"
+
+# This is the version of Mockito that will be used at build time and run time
+mockito: org.mockito.mockito-core;version="[1.9,2)",\
+  org.objenesis;version="[2.1,3)"
+
+# Discover and run all test cases annotated with the @RunWith annotation
+Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
+
+# Build dependencies 
+-buildpath: \
+	${junit},\
+	${mockito},\
+	osgi.annotation;version=6.0.1,\
+	osgi.core;version=6.0,\
+	osgi.cmpn;version=6.0,\
+	com.liferay.test.upgrade.api;version=latest
+
+javac.source: 1.8
+javac.target: 1.8
+
+# We need JUnit and Mockito to resolve the test cases at runtime. 
+# Other runtime dependencies should be added as necessary
+-runbundles: \
+	${junit},\
+	${mockito},\
+	biz.aQute.junit,\
+	com.liferay.test.upgrade.api;version=latest,\
+	com.liferay.test.upgrade.eclipse.provider;version=latest,\
+	com.liferay.test.upgrade.liferay70;version=latest,\
+	org.apache.felix.configadmin;version='[1.8.0,1.8.1)',\
+	org.apache.felix.gogo.runtime,\
+	org.apache.felix.metatype;version='[1.0.10,1.0.11)',\
+	org.apache.felix.scr;version='[2.0.0,2.1.0)',\
+	org.apache.xerces,\
+	org.apache.xml.resolver,\
+	org.apache.xml.serializer,\
+	org.eclipse.equinox.app,\
+	org.eclipse.equinox.common,\
+	org.eclipse.equinox.preferences,\
+	org.eclipse.equinox.registry,\
+	org.eclipse.emf.common,\
+	org.eclipse.emf.ecore,\
+	org.eclipse.core.contenttype,\
+	org.eclipse.core.commands,\
+	org.eclipse.core.expressions,\
+	org.eclipse.core.filebuffers,\
+	org.eclipse.core.filesystem,\
+	org.eclipse.core.jobs,\
+	org.eclipse.core.resources,\
+	org.eclipse.core.runtime,\
+	org.eclipse.jdt.core,\
+	org.eclipse.osgi.services,\
+	org.eclipse.osgi.util,\
+	org.eclipse.wst.common.core,\
+	org.eclipse.wst.common.environment,\
+	org.eclipse.wst.common.frameworks,\
+	org.eclipse.wst.common.project.facet.core,\
+	org.eclipse.wst.common.uriresolver,\
+	org.eclipse.wst.css.core,\
+	org.eclipse.wst.html.core,\
+	org.eclipse.wst.sse.core,\
+	org.eclipse.wst.xml.core,\
+	org.eclipse.wst.validation,\
+	org.eclipse.jst.jsp.core,\
+	org.eclipse.text,\
+	com.ibm.icu,\
+	javax.el,\
+	javax.servlet,\
+	javax.servlet.jsp,\
+	javax.xml
+
+Bundle-Version: 0.0.0.${tstamp}
+Private-Package: com.liferay.test
+
+# Needed for Mockito's mocking to work
+-runsystempackages.objenesis: sun.misc,sun.reflect
+
+# Use Felix by default
+-runfw: org.eclipse.osgi;version='[3.10.102.v20160118-1700,3.10.102.v20160118-1700]'
+-runvm: -ea
+-runee: JavaSE-1.7
