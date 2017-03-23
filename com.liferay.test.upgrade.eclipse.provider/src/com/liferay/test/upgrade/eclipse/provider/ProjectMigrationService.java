@@ -71,7 +71,6 @@ public class ProjectMigrationService implements Migration {
 						final List<SearchResult> fileProblems = fmigrator.analyze(file);
 
 						if (fileProblems != null && fileProblems.size() > 0) {
-
 							problems.addAll(fileProblems);
 						}
 					} catch (Exception e) {
