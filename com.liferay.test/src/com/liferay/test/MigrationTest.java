@@ -24,7 +24,7 @@ public class MigrationTest {
 	@Test
 	public void testExample() {
 		ServiceReference<Migration> sr = context.getServiceReference(Migration.class);
-		
+
 		Migration migration = context.getService(sr);
 
 		assertNotNull(migration);
@@ -32,7 +32,7 @@ public class MigrationTest {
 		File dir = new File("projects/test-portlet/");
 
 		List<Problem> problems = migration.findProblems(dir);
-		
+
 		assertEquals(4, problems.size());
 	}
 
