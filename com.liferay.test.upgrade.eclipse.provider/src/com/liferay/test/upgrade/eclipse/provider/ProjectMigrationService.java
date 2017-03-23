@@ -36,7 +36,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 import com.liferay.test.upgrade.api.FileMigrator;
 import com.liferay.test.upgrade.api.Migration;
-import com.liferay.test.upgrade.api.Problem;
+import com.liferay.test.upgrade.api.SearchResult;
 
 @Component
 public class ProjectMigrationService implements Migration {
@@ -52,7 +52,7 @@ public class ProjectMigrationService implements Migration {
 		_fileMigratorTracker.open();
 	}
 
-	protected FileVisitResult analyzeFile(File file, List<Problem> problems) {
+	protected FileVisitResult analyzeFile(File file, List<SearchResult> problems) {
 		String fileName = file.toPath().getFileName().toString();
 		String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
 
@@ -68,7 +68,7 @@ public class ProjectMigrationService implements Migration {
 					final FileMigrator fmigrator = _context.getService(fm);
 
 					try {
-						final List<Problem> fileProblems = fmigrator.analyze(file);
+						final List<SearchResult> fileProblems = fmigrator.analyze(file);
 
 						if (fileProblems != null && fileProblems.size() > 0) {
 
@@ -87,22 +87,22 @@ public class ProjectMigrationService implements Migration {
 	}
 
 	@Override
-	public List<Problem> findProblems(final File projectDir) {
-		final List<Problem> problems = new ArrayList<>();
+	public List<SearchResult> findProblems(final File projectDir) {
+		final List<SearchResult> results = new ArrayList<>();
 
-		walkFiles(projectDir, problems);
+		walkFiles(projectDir, results);
 
-		return problems;
+		return results;
 	}
 
-	private void walkFiles(final File dir, final List<Problem> problems) {
+	private void walkFiles(final File dir, final List<SearchResult> results) {
 		final FileVisitor<Path> visitor = new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
 				File file = path.toFile();
 
 				if (file.isFile()) {
-					FileVisitResult result = analyzeFile(file, problems);
+					FileVisitResult result = analyzeFile(file, results);
 
 					if (result.equals(FileVisitResult.TERMINATE)) {
 						return result;

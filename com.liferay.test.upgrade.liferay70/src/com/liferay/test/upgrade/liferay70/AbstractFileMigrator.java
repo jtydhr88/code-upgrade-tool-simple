@@ -17,7 +17,6 @@
 package com.liferay.test.upgrade.liferay70;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Dictionary;
@@ -31,7 +30,6 @@ import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 
 import com.liferay.test.upgrade.api.FileMigrator;
-import com.liferay.test.upgrade.api.Problem;
 import com.liferay.test.upgrade.api.SearchResult;
 
 public abstract class AbstractFileMigrator<T> implements FileMigrator {
@@ -60,19 +58,8 @@ public abstract class AbstractFileMigrator<T> implements FileMigrator {
 	}
 
 	@Override
-	public List<Problem> analyze(File file) {
-		final List<Problem> problems = new ArrayList<>();
-
-		final List<SearchResult> searchResults = searchFile(file, createFileChecker(_type, file));
-
-		if (searchResults != null) {
-			for (SearchResult searchResult : searchResults) {
-				problems.add(new Problem(file, searchResult.startLine, searchResult.startOffset, searchResult.endOffset,
-						_problemTitle));
-			}
-		}
-
-		return problems;
+	public List<SearchResult> analyze(File file) {
+		return searchFile(file, createFileChecker(_type, file));
 	}
 
 	protected T createFileChecker(Class<T> type, File file) {

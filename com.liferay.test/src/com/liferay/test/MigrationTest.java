@@ -14,7 +14,7 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 
 import com.liferay.test.upgrade.api.Migration;
-import com.liferay.test.upgrade.api.Problem;
+import com.liferay.test.upgrade.api.SearchResult;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MigrationTest {
@@ -31,7 +31,7 @@ public class MigrationTest {
 
 		File dir = new File("projects/test-portlet/");
 
-		List<Problem> problems = migration.findProblems(dir);
+		List<SearchResult> problems = migration.findProblems(dir);
 
 		assertEquals(4, problems.size());
 	}

@@ -8,6 +8,6 @@ import org.osgi.annotation.versioning.ConsumerType;
 @ConsumerType
 public interface FileMigrator {
 
-	public List<Problem> analyze(File file);
+	public List<SearchResult> analyze(File file);
 
 }

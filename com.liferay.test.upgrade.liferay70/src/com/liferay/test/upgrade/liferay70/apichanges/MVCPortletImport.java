@@ -21,26 +21,12 @@ import org.osgi.service.component.annotations.Component;
 import com.liferay.test.upgrade.api.FileMigrator;
 import com.liferay.test.upgrade.liferay70.ImportStatementMigrator;
 
-@Component(
-	property = {
-		"file.extensions=java,jsp,jspf",
-		"problem.title=Need to use new MVCPortlet class",
-		"auto.correct=import",
-		"implName=ContactNameExceptionImport"
-	},
-	service = {
-		FileMigrator.class
-	}
-)
+@Component(property = { "file.extensions=java", }, service = { FileMigrator.class })
 public class MVCPortletImport extends ImportStatementMigrator {
 
-	private final static String[] IMPORTS = new String[] {
-		"com.liferay.util.bridges.mvc.MVCPortlet"
-	};
+	private final static String[] IMPORTS = new String[] { "com.liferay.util.bridges.mvc.MVCPortlet" };
 
-	private final static String[] IMPORTS_FIXED = new String[] {
-		"com.liferay.new.MVCPortlet",
-	};
+	private final static String[] IMPORTS_FIXED = new String[] { "com.liferay.new.MVCPortlet", };
 
 	public MVCPortletImport() {
 		super(IMPORTS, IMPORTS_FIXED);
